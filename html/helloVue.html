@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<style>
+    .red {
+        color: red;
+    }
+    .hd {
+        color: green;
+    }
+</style>
+<div id="helloVue1">
+    <!-- 数据绑定(注意绑定的元素必须是打引号的"hd", 如果是"'hd'"那么就无法对应js中定义的Vue对象中的hd属性)
+      绑定的属性如果有单引号，那就表示这个标签元素的class或id属性, 即<h1 class="hd"></h1>
+    -->
+    <h1 v-bind:class="'hd'" v-bind:id="test1">xxxxx.com</h1>
+</div>
+<script>
+    const app = new Vue({
+        el: '#helloVue1',
+        data: {
+            title: "YuKai Fan",
+            hd: "red"
+        }
+    });
+</script>
+</body>
+</html>
