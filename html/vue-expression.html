@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue表达式</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test2">
+    {{n + 3}}
+
+    <!--如果表达式是个变量就不用表引号，如果是个字符串就是要引号-->
+    <h1 :class="'test' + n">你好</h1>
+    <input type="text" v-model="n">
+    <br>----------------------------
+    <input type="radio" v-model="n" value="1">红
+    <input type="radio" v-model="n" value="2">绿
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#test2',
+        data: {
+            n: 1
+        }
+    })
+</script>
+</body>
+</html>

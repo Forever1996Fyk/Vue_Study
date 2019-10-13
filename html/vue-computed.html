@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue计算</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test2">
+    <input type="text" v-model="n1"> +
+    <input type="text" v-model="n2"> =
+    <input type="text" v-model="sum">
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#test2',
+        computed: {//computed表示计算
+            sum: function () {
+                return this.n1*1 + this.n2*1;
+            },
+        },
+        data: {
+            n1: 0,
+            n2: 0
+        }
+    })
+</script>
+</body>
+</html>

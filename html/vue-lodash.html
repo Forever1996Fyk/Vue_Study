@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Lodash</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test2">
+    <!--由于设置监听器, 每次input值的变化，都会请求一个接口，就会导致对后端的请求压力很大-->
+    <input type="text" v-model="word">
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#test2',
+        watch: {
+            word: function (newV, oldV) {
+                console.log(newV + '=>' + oldV);
+            }
+        },
+        data: {
+            word: ''
+        }
+    })
+</script>
+</body>
+</html>

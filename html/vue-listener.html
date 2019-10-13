@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Watch监听</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test2">
+    <!--设置监听器-->
+    <input type="text" v-model="word">
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#test2',
+        watch: {
+            word: function (newV, oldV) {
+                console.log(newV + '=>' + oldV);
+            }
+        },
+        data: {
+            word: ''
+        }
+    })
+</script>
+</body>
+</html>

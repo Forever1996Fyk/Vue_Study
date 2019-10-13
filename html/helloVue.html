@@ -10,6 +10,7 @@
     .red {
         color: red;
     }
+
     .hd {
         color: green;
     }
@@ -19,13 +20,29 @@
       绑定的属性如果有单引号，那就表示这个标签元素的class或id属性, 即<h1 class="hd"></h1>
     -->
     <h1 v-bind:class="'hd'" v-bind:id="test1">xxxxx.com</h1>
+    <br>----------------
+    <h2>{{test1}}</h2>
+    <!--v-model绑定元素为模型, 如果改变input内容就会改变app中的test1数据，又会改变上面的h2的内容，这就是双向绑定-->
+    <input type="text" v-model="test1">
+    <br>----------------
+    <!--v-once表示只绑定一次，也就是说app.test1变化时,h3的数据不会发生改变-->
+    <h3 v-once>{{test1}}</h3>
+
+    <br>----------------
+
+    <!--如果要输出html元素时，需要使用v-html属性，否则会直接实体输出-->
+    <h1 v-text="test3"></h1>
+    <h1 v-html="test3"></h1>
 </div>
 <script>
     const app = new Vue({
         el: '#helloVue1',
         data: {
             title: "YuKai Fan",
-            hd: "red"
+            hd: "red",
+            test1: "范钰恺",
+            test2: "你是神魔恋啊",
+            test3: '<h1 style="color: red">YuKai Fan</h1>'
         }
     });
 </script>
