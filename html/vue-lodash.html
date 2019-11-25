@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Vue Lodash</title>
     <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
 </head>
 <body>
 <div id="test2">
@@ -15,9 +17,14 @@
     const app = new Vue({
         el: '#test2',
         watch: {
-            word: function (newV, oldV) {
+            word: _.debounce(function (newV, oldV) {
+                axios.get("../json/listener.json").then(function (res) {
+                    var data = res.data;
+                    app.result = data.test + newV;
+                    console.log(data.test + newV);
+                });
                 console.log(newV + '=>' + oldV);
-            }
+            }, 3000)
         },
         data: {
             word: ''

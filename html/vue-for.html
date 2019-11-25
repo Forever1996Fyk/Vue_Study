@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Vue-for 循环</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <table border="1">
+        <tr>
+            <th>序号</th>
+            <th>编号</th>
+            <th>标题</th>
+        </tr>
+        <tbody>
+        <tr v-for="(field, key) in news">
+            <td>{{key+1}}</td>
+            <td>{{field.id}}</td>
+            <td>{{field.title}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            news: [
+                {id: 123, title: 'test1'},
+                {id: 321, title: 'test2'},
+            ]
+        }
+    })
+</script>
+
+</body>
+</html>

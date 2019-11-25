@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <!-- v-if会真正的将元素变化，例如下面的例子，如果status为false v-if会讲h1元素删除, 而v-show只是将元素隐藏
+        在性能上v-show要比v-if强
+    -->
+    <h1 v-if="status">YuKaiFan</h1>
+    <h1 v-show="status">Fan Yu Kai</h1>
+    <input type="checkbox" v-model="status">
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            status: true
+        }
+    })
+</script>
+
+</body>
+</html>

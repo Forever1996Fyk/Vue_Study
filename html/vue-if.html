@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <input type="text" v-model="age">
+    <span v-if="age < 20">小孩</span>
+    <span v-else-if="age < 30">青年</span>
+    <span v-else-if="age < 50">壮年</span>
+    <span v-else>老年</span>
+    <input type="checkbox" v-model="copyRight"> 接受协议 <br/>
+    <!-- 注意使用v-if，v-else那么这两条语句需要连在一起-->
+    <span v-if="copyRight == false"> 请先接受协议</span>
+    <button v-else>注册</button>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            copyRight: false,
+            age: 0
+        }
+    })
+</script>
+
+</body>
+</html>

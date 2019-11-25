@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <h1 :style="{color: 'red', fontSize: size + 'px'}">YuKai Fan</h1>
+    <h2 :style="style">YuKaiFan</h2>
+    <h3 :style="[test]">www.google.com</h3>
+    <input type="number" v-model="size">
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            red: 'red',
+            size: 13,
+            style: {
+                color: 'blue'
+            },
+            test: {
+                color: 'yellow',
+                backgroundColor: 'blue'
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

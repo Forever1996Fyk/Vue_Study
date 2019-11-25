@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <!-- 这里使用key值来清除绑定在input框中的数据-->
+    <template v-if="regType == 'email'">
+        邮箱：<input type="text" name="email" key="email-register">
+    </template>
+    <template v-else>
+        手机：<input type="text" name="phone" key="phone-register">
+    </template>
+    <br>
+    <input type="radio" value="email" v-model="regType"> 邮箱注册
+    <input type="radio" value="phone" v-model="regType"> 手机注册
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            regType: 'email'
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Vue-for 循环</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <li v-for="v in test">
+        {{v.name}} - {{v.sex}}
+    </li>
+    {{type}}
+    <input type="radio" v-model="type" value="girl"> 女孩
+    <input type="radio" v-model="type" value="boy"> 男孩
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        computed: {
+            test(){
+                if (this.type === 'all') {
+                    return this.user;
+                } else {
+                    //使用这种方式是无法获取到this.type因为this不属于这个方法丽的作用域，所以不能这么用
+                    // return this.user.filter(function (v) {
+                    //     return v.sex == this.type;
+                    // })
+
+                    //表示将v作为参数传递到表达式中，这时的this可以作为表达式中的作用域
+                    return this.user.filter((v) => {
+                        return v.sex === this.type;
+                    });
+                }
+            }
+        },
+        data: {
+            type: 'all',
+            user: [
+                {name: "小明", sex: 'boy'},
+                {name: "小强", sex: 'boy'},
+                {name: "小丽", sex: 'girl'},
+                {name: "小梅", sex: 'girl'}
+            ]
+        }
+    })
+</script>
+
+</body>
+</html>

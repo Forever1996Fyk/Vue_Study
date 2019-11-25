@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+    .color {
+        color: red;
+    }
+
+    .font {
+        font-size: 200px;
+    }
+
+    .green {
+        color: green;
+    }
+</style>
+<body>
+<div id="test">
+    <!--  可以使用vue控制class样式，但是如果在元素中class已经有对应的样式那么vue就不会改变原有样式, 但其他样式还是会改变  -->
+    <h1 class="green" :class="test">YuKai Fan</h1>
+    <br>
+
+    <!-- 使用数组来控制样式, 也可以使用变量来控制-->
+    <h2 :class="[success, font]">Fan YuKai</h2>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            test: {color: true, font: true},
+            success: 'color',
+            font: 'font'
+        }
+    })
+</script>
+
+</body>
+</html>

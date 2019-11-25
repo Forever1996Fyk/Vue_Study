@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <title>Vue Watch监听</title>
     <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
 </head>
 <body>
 <div id="test2">
     <!--设置监听器-->
     <input type="text" v-model="word">
+    <h1>
+        结果：{{result}}
+    </h1>
 </div>
 
 <script>
@@ -16,11 +20,17 @@
         el: '#test2',
         watch: {
             word: function (newV, oldV) {
-                console.log(newV + '=>' + oldV);
+                axios.get("../json/listener.json").then(function (res) {
+                    var data = res.data;
+                    app.result = data.test + newV;
+                    console.log(data.test + newV);
+                });
+
             }
         },
         data: {
-            word: ''
+            word: '',
+            result: ''
         }
     })
 </script>

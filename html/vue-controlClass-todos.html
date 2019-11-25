@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+    .success {
+        color: green;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+<body>
+<div id="test">
+    <li v-for="v in news">
+        <span :class="v.status?'success':'error'">{{v.title}}</span>
+        <button v-on:click="changeStatus(v, false)" v-if="v.status">删除</button>
+        <button v-on:click="changeStatus(v, true)" v-if="!v.status">恢复</button>
+    </li>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        methods: {
+            changeStatus: function (item, status) {
+                item.status = status;
+            }
+        },
+        data: {
+            news: [
+                {title: "YuKai Fan", status: true},
+                {title: "MichaelKai", status: true}
+            ]
+        }
+    })
+</script>
+
+</body>
+</html>
