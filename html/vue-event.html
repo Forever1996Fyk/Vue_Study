@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>搜索</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <li v-for="(v, k) in comments">
+        {{v.id}} - {{v.content}}
+<!--        <button v-on:click="remove(k)">删除</button>-->
+        <button @click="remove(v.id)">删除</button>
+    </li>
+</div>
+<script>
+    //push这是js的默认方法, 数组追加
+    // var a = [1, 2];
+    // a.push(3);
+    // console.log(a);
+
+    //在vue中push 是在data中追加
+    var app = new Vue({
+        el: '#test',
+        data: {
+            search_content: '',
+            //当前用户输入的内容
+            current_content: "",
+            comments: [
+                {id: 2, content: "test2"},
+                {id: 4, content: "test4"},
+                {id: 1, content: "test1"},
+                {id: 3, content: "test3"}
+            ]
+        },
+        methods: {
+            remove(k) {
+                console.log(k);
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

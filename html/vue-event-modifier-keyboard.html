@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>搜索</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <input type="text" @keyup.enter="keyEvent">
+    <form action=""></form>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+        },
+        methods: {
+            keyEvent() {
+                console.log('test');
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

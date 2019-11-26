@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <!-- self表示，当其他事件请求到自己时，并不会执行，只有自己请求才会执行-->
+    <div @click.self="box" :style="{border: 'solid 2px red'}">
+        <a href="http://www.baidu.com" @click.prevent="links">百度一下</a>
+    </div>
+
+    <!-- 先执行div，在执行a-->
+    <div @click.capture="box" :style="{border: 'solid 2px red'}">
+        <a href="http://www.baidu.com" @click.prevent="links">百度一下2</a>
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {},
+        methods: {
+            links() {
+                alert('http://www.baidu.com');
+            },
+            box() {
+                alert("div");
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

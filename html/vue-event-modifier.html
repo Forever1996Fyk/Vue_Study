@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>搜索</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <form action="" @submit.prevent="post()">
+        <h1>{{times}}</h1>
+        <button>提交</button>
+    </form>
+</div>
+<script>
+    //push这是js的默认方法, 数组追加
+    // var a = [1, 2];
+    // a.push(3);
+    // console.log(a);
+
+    //在vue中push 是在data中追加
+    var app = new Vue({
+        el: '#test',
+        data: {
+            times: new Date()
+        },
+        methods: {
+            post() {
+                //默认行为, 可以解决异步问题
+                // event.preventDefault();
+                alert("http");
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

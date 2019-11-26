@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>搜索</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <div :style="style" @click.left="handler" oncontextmenu="return false">
+
+    </div>
+
+    <!-- oncontextmenu表示页面上鼠标右键菜单事件-->
+    <div :style="style" @contextmenu.prevent="handler">
+
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            style: {border: 'solid 2px red', height: '300px'}
+        },
+        methods: {
+            handler() {
+                alert("test");
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

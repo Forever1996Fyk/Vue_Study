@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <li v-for="(v, k) in comments">
+        {{v.content}} <button v-on:click="remove(k)">删除</button>
+    </li>
+    <textarea v-model="current_content" cols="30" rows="10"></textarea><br>
+    <button v-on:click="push('end')">发表到后面</button>
+    <button v-on:click="push('pre')">发表到前面</button>
+    <br>
+    <button v-on:click="del('last')">删除最后一条评论</button>
+    <button v-on:click="del('first')">删除第一条评论</button>
+</div>
+<script>
+    //push这是js的默认方法, 数组追加
+    // var a = [1, 2];
+    // a.push(3);
+    // console.log(a);
+
+    //在vue中push 是在data中追加
+    var app = new Vue({
+        el: '#test',
+        data: {
+            //当前用户输入的内容
+            current_content: "",
+            comments: [
+                {content: "YuKaiFan"},
+                {content: "MichaelKai"}
+            ]
+        },
+        methods: {
+            remove(key) {
+                //splice从k位置开始移除1个
+                this.comments.splice(key, 1);
+            },
+            /*
+            push = function(){}
+             */
+            push(type) {
+                var content = {content: this.current_content};
+                switch (type) {
+                    case 'end':
+                        this.comments.push(content);
+                        break;
+
+                    case 'pre':
+                        this.comments.unshift(content);
+                        break;
+                }
+                this.current_content = '';
+            },
+
+            del(type) {
+                switch (type) {
+                    case 'last':
+                        this.comments.pop();
+                        break;
+
+                    case 'first':
+                        this.comments.shift();
+                        break;
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
