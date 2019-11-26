@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>搜索</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <!-- 将输入框的类型转为number-->
+    <input type="number" v-model.number="field.click">
+
+    <!-- 去除空格 trim-->
+    <input type="text" v-model.trim="field.title">
+
+    <!-- 使用lazy时, 当改变输入框内容时，只有鼠标光标离开输入框才会变化-->
+    <input type="text" v-model.trim.lazy="field.title">
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        watch: {
+            'field.click': function (n, o) {
+                console.log(typeof (n))
+            },
+
+            'field.title': function (n, o) {
+                console.log(n.length);
+            }
+        },
+        data: {
+            field: {
+                click: 100,
+                title: '测试'
+            }
+        },
+        methods: {}
+    })
+</script>
+
+</body>
+</html>

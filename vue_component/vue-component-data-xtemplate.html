@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test">
+    <yk-news></yk-news>
+    <br>
+    <yk-news></yk-news>
+    <br>
+    <yk-news></yk-news>
+</div>
+<!-- 定义成x-template可以让html解析忽略, 而vue则可以解析到 -->
+<script type="text/x-template" id="ykNews">
+    <div>
+        <li v-for="(v, k) in news">
+            {{v.title}}
+            <button @click="del(k)">删除</button>
+        </li>
+    </div>
+    <h1>hello YuKai</h1>
+</script>
+<script>
+    var ykNews = {
+        template: '#ykNews',//注意模版中如果有多个元素，必须要有子父元素
+        data() {
+            return { // 这里为了保证每个组件有独立的数据，需要每次都返回一个新的数据
+                news: [
+                    {title: 'test1'},
+                    {title: 'test2'}
+                ]
+            };
+        },
+        methods: {
+            del(k) {
+                this.news.splice(k, 1);
+            }
+        }
+
+    };
+    var app = new Vue({
+        el: '#test',
+        components:{ykNews}, //=>{ykNews: ykNews}
+        data: {
+
+        }
+
+    });
+</script>
+</body>
+</html>

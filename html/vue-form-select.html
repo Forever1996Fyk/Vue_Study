@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>搜索</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <select v-model="field.cid" multiple>
+        <option value="">=请选择=</option>
+        <option v-for="v in category" :value="v.cid">{{v.title}}</option>
+    </select>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            category: [
+                {cid: 1, title: 'test1'},
+                {cid: 2, title: 'test2'},
+                {cid: 3, title: 'test3'},
+                {cid: 4, title: 'test4'}
+            ],
+            field: {
+                cid: '1'
+            }
+        },
+        methods: {}
+    })
+</script>
+
+</body>
+</html>

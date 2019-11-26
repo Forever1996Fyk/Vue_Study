@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue2.6.10.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
+    <title>搜索</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="test">
+    <!-- 多个复选框绑定的数据需要是数组类型 -->
+    <div id="" v-for="v in field.flag">
+        <input type="checkbox" :value="v.name"> {{v.title}}
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#test',
+        data: {
+            field: {
+                flag: [
+                    {name: 'hot', title: '热门'},
+                    {name: 'recommend', title: '推荐'}
+                ]
+            }
+        },
+        methods: {}
+    })
+</script>
+
+</body>
+</html>

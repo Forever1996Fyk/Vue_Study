@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test">
+    <yk-slide></yk-slide>
+    <yk-news></yk-news>
+</div>
+<script>
+    Vue.component('ykSlide', {
+        template: '<h1>http://www.baidu.com</h1>'
+    });
+    var ykNews = {
+        template: '<h2>hello world</h2>'
+    };
+    var app = new Vue({
+        el: '#test',
+        components:{ykNews} //=>{ykNews: ykNews}
+    });
+</script>
+</body>
+</html>

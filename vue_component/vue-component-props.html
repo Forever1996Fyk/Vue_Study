@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test">
+    <!-- :show-del-button是表达式, 而不加冒号就是字符串 -->
+    <yk-news yk="fanyukai" yk2="hello" :show-del-button="false" :lists="news"></yk-news>
+</div>
+<!-- 定义成x-template可以让html解析忽略, 而vue则可以解析到 -->
+<script type="text/x-template" id="ykNews">
+    <div>
+        {{yk}} - {{yk2}} - {{showDelButton}}
+        <li v-for="(v, k) in lists">
+            {{v.title}}
+            <button @click="del(k)" v-if="showDelButton">删除</button>
+        </li>
+    </div>
+</script>
+<script>
+    var ykNews = {
+        template: '#ykNews',//注意模版中如果有多个元素，必须要有子父元素
+        props: ['yk', 'yk2', 'showDelButton', 'lists'],//可以获取自定义标签中的属性
+        data() {
+            return {
+                // news: [
+                //     {title: 'test1'},
+                //     {title: 'test2'}
+                // ]
+            };
+        },
+
+        methods: {
+            del(k) {
+                this.news.splice(k, 1);
+            }
+        }
+
+    };
+    var app = new Vue({
+        el: '#test',
+        components: {ykNews}, //=>{ykNews: ykNews}
+        data: {
+            news: [
+                {title: 'test1'},
+                {title: 'test2'},
+                {title: 'test3'}
+            ]
+        }
+
+    });
+</script>
+</body>
+</html>
