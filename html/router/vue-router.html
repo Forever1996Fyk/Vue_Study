@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue计算</title>
+    <script src="../../js/vue2.6.10.js"></script>
+    <script src="../../js/vue-router.js"></script>
+</head>
+<body>
+<!-- router是路由的意思，但是在页面上访问路由并不是真正的跳转，而是显示与隐藏一个个vue组件 -->
+<div id="test">
+    <router-link to="/ykJava">YK-JAVA</router-link>
+    <router-link to="/ykVue">YK-VUE</router-link>
+    <!-- 模版显示 -->
+    <router-view></router-view>
+</div>
+
+<script>
+    const ykJava = {
+        template: '<h1>ykJava</h1>'
+    };
+    const ykVue = {
+        template: '<h1>ykVue</h1>'
+    };
+    var routes = [
+        //根据不同的路径访问不同的组件
+        {path: '/ykJava', component: ykJava},
+        {path: '/ykVue', component: ykVue}
+    ];
+    //要把组件交给路由器控制
+    var router = new VueRouter({routes}); //这种写法相当于 {routes: routes}但是名字相同可以使用简写，下面的写法也是
+    var app = new Vue({
+        el: '#test',
+        router //将路由放入vue中
+    })
+</script>
+</body>
+</html>
