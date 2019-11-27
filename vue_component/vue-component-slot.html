@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test">
+    <form action="">
+        <!-- slot表示内容分发, 将slot中的内容显示到自定义组件中的(根据slot中的name属性分发)-->
+        <bs-panel>
+            <h1 slot="header">测试</h1>
+            <p slot="body">
+                <bs-input title="标题" value="测试" slot="body"></bs-input>
+                <bs-input title="标题1" value="测试1" slot="body"></bs-input>
+            </p>
+        </bs-panel>
+    </form>
+</div>
+
+<!-- 定义成x-template可以让html解析忽略, 而vue则可以解析到 -->
+<script type="text/x-template" id="bsPanel">
+    <div>
+        <!--由于上面定义了slot, 所以下面的内容会被替换-->
+        <slot name="header">没有传递内容</slot>
+        <slot name="body">没有传递内容</slot>
+    </div>
+</script>
+
+<script type="text/x-template" id="bsInput">
+    <div>
+        <label>{{title}}</label>
+        <input type="text" :value="value">
+    </div>
+</script>
+<script>
+    var bsPanel = {
+        template: '#bsPanel'//注意模版中如果有多个元素，必须要有子父元素
+    };
+    var bsInput = {
+        template: "#bsInput",
+        props: ['title', 'value']
+    };
+    var app = new Vue({
+        el: '#test',
+        components: {bsPanel, bsInput} //=>{ykNews: ykNews}
+    });
+</script>
+</body>
+</html>

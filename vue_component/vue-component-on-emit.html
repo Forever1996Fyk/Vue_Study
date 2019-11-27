@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue2.6.10.js"></script>
+</head>
+<body>
+<div id="test">
+    <!-- :show-del-button是表达式, 而不加冒号就是字符串 -->
+    <yk-news :lists="goods" @sum="total"></yk-news>
+    总计:{{totalPrice}}元
+</div>
+<!-- 定义成x-template可以让html解析忽略, 而vue则可以解析到 -->
+<script type="text/x-template" id="ykNews">
+    <table border="1" width="90px">
+        <tr>
+            <th>商品名称</th>
+            <th>商品价格</th>
+            <th>商品数量</th>
+        </tr>
+        <tbody>
+            <tr v-for="(v, k) in lists">
+                <td>{{v.title}}</td>
+                <td>{{v.price}}</td>
+                <td>
+                    <input type="text" v-model="v.num" @blur="sum">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+<script>
+    var ykNews = {
+        template: '#ykNews',//注意模版中如果有多个元素，必须要有子父元素
+        props: ['lists'],
+        methods: {
+            sum() {
+                //$emit表示触发父组件的事件
+                this.$emit('sum');
+            }
+        }
+    };
+    var app = new Vue({
+        el: '#test',
+        components: {ykNews}, //=>{ykNews: ykNews}
+        mounted() {//钩子, 表示当vue的解析完成时, 会自动执行
+            this.total();
+        },
+        data: {
+            totalPrice: 0,
+            goods: [
+                {title: "iphone5s", price: 100, num: 1},
+                {title: "iphone6s", price: 200, num: 1},
+                {title: "iphone7p", price: 300, num: 1}
+            ]
+        },
+
+        methods: {
+            total() {
+                this.totalPrice = 0;
+                this.goods.forEach((v) => {
+                    this.totalPrice += v.num * v.price
+                })
+            }
+        }
+
+    });
+</script>
+</body>
+</html>
