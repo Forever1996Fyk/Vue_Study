@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue计算</title>
+    <script src="../../js/vue2.6.10.js"></script>
+    <script src="../../js/vue-router.js"></script>
+</head>
+<body>
+<!-- router是路由的意思，但是在页面上访问路由并不是真正的跳转，而是显示与隐藏一个个vue组件 -->
+<div id="test">
+    <router-link to="/content">内容</router-link>
+    <!-- 模版显示 -->
+    <router-view></router-view>
+</div>
+
+<script type="text/x-template" id="content">
+    <div>
+        <!-- 获取路由后面的参数 $route.params.id -->
+        id : {{id}}
+        <br>
+        <button @click="show">检测参数</button>
+    </div>
+</script>
+<script>
+    const content = {
+        template: '#content',
+        data() { //在自组件中data是一个函数
+            return {
+                id: 0
+            }
+        },
+        mounted() { // 钩子，表示执行玩钩子中的方法模版中的元素才会出现
+            this.id = this.$route.params.id; //获取路由参数
+            if (!this.id) {//如果路由参数为空或者undefined，那就默认为1
+                this.id = 1;
+            }
+        },
+        methods: {
+            show() {
+                console.log(this.$route.params);
+            }
+        }
+    };
+    var routes = [
+        //根据不同的路径访问不同的组件 这里路由的参数几乎可以随意设置, 例如：/content-:cid-show-:id
+
+        //?表示设置默认值，当没有传id值时，会用默认值
+        {path: '/content/:id?', component: content}
+    ];
+    //要把组件交给路由器控制
+    var router = new VueRouter({routes}); //这种写法相当于 {routes: routes}但是名字相同可以使用简写，下面的写法也是
+    var app = new Vue({
+        el: '#test',
+        router //将路由放入vue中
+    })
+</script>
+</body>
+</html>

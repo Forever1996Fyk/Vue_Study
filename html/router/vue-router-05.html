@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue计算</title>
+    <script src="../../js/vue2.6.10.js"></script>
+    <script src="../../js/vue-router.js"></script>
+</head>
+<body>
+<!-- router是路由的意思，但是在页面上访问路由并不是真正的跳转，而是显示与隐藏一个个vue组件 -->
+<div id="test">
+<!--    <router-link to="/">HOME</router-link>-->
+    <!-- 模版显示 -->
+    <router-view></router-view>
+</div>
+
+<script type="text/x-template" id="home">
+    <div>
+        <li v-for="v in news">
+            <!-- 绑定参数 冒号:相当于 v-bind 这里的name对应下面的路由名称content, 可以使用params传递参数-->
+            <router-link :to="{name: 'content', params: {id: v.id}}">{{v.title}}</router-link>
+        </li>
+    </div>
+</script>
+<script type="text/x-template" id="content">
+    <div>
+        <h1>{{field.title}}</h1>
+        <p>
+            {{field.content}}
+        </p>
+        <router-link to="/">返回首页</router-link>
+    </div>
+</script>
+<script>
+    var data = [
+        {id: 1, title: "home1", content: '内容1'},
+        {id: 2, title: "home2", content: '内容2'}
+    ];
+    const content = {
+        template: '#content',
+        data() {
+            return {
+                field: {}
+            }
+        },
+        mounted() {
+            var id = this.$route.params.id;
+            for (var k = 0; k < data.length; k++) {
+                if (data[k].id === id) {
+                    this.field = data[k];
+                }
+            }
+        }
+    };
+    const home = {
+        template: '#home',
+        data() { //在自组件中data是一个函数
+            return {
+                news: data
+            }
+        }
+    };
+    var routes = [
+        //根据不同的路径访问不同的组件 这里路由的参数几乎可以随意设置, 例如：/content-:cid-show-:id
+
+        //?表示设置默认值，当没有传id值时，会用默认值
+        {path: '/', component: home},
+        {path: '/content/:id?', component: content, name: 'content'} // 给这个路由定义name, 用于方面的传参
+    ];
+    //要把组件交给路由器控制
+    var router = new VueRouter({routes}); //这种写法相当于 {routes: routes}但是名字相同可以使用简写，下面的写法也是
+    var app = new Vue({
+        el: '#test',
+        router //将路由放入vue中
+    })
+</script>
+</body>
+</html>
