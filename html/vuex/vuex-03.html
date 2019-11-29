@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/vue2.6.10.js"></script>
+    <script src="../../js/vuex.js"></script>
+</head>
+<body>
+<div id="test">
+    <list></list>
+</div>
+<script type="text/x-template" id="list">
+    <div>
+        <h3>购物车</h3>
+        <table border="1" width="90%">
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>总计</th>
+            </tr>
+            <tr v-for="v in goods">
+                <td>{{v.id}}</td>
+                <td>{{v.title}}</td>
+                <td>{{v.price}}</td>
+                <td>{{v.num}}</td>
+                <td>{{v.totalPrice}}</td>
+            </tr>
+        </table>
+        <h1>总价: {{totalPrice}}</h1>
+    </div>
+</script>
+<script>
+    <!-- vuex其实就是统一管理数据的工具 -->
+    var store = new Vuex.Store({
+        state: {
+            totalPrice: 100,
+            goods: [
+                {id: 1, title: 'iphone7', price: 499, num: 3},
+                {id: 1, title: 'iphone8', price: 1999, num: 6}
+            ]
+        },
+        getters: {
+            //getters可以直接获取vuex中的数据
+            totalPrice: state => {
+                var totalPrice = 0;
+                state.goods.forEach((v) => {
+                    totalPrice += v.num * v.price;
+                });
+                return totalPrice;
+            },
+            //获取生怕并计算每件商品的总价
+            goods(state) {
+                var goods = state.goods;
+                goods.forEach((v) => {
+                    v.totalPrice = v.num * v.price;
+                });
+                return goods;
+            }
+        }
+    });
+    var list = {
+        template: '#list',
+        computed: {
+            totalPrice() {
+                return this.$store.getters.totalPrice;
+            },
+            goods() {
+                return this.$store.getters.goods;
+            }
+        }
+    };
+    var app = new Vue({
+        el: '#test',
+        store,
+        components: {list}
+    })
+</script>
+</body>
+</html>

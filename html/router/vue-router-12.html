@@ -39,6 +39,9 @@
         {id: 1, title: "home1", content: '内容1'},
         {id: 2, title: "home2", content: '内容2'}
     ];
+    const NotFound = {
+        template: '<h1>您请求的页面不存在</h1>'
+    };
     const content = {
         template: '#content',
         data() {
@@ -95,7 +98,8 @@
         //?表示设置默认值，当没有传id值时，会用默认值
         //
         {path: '/', component: home},
-        {path: '/content/:id?', component: content, name: 'content'} // 给这个路由定义name, 用于方面的传参
+        {path: '/content/:id?', component: content, name: 'content'}, // 给这个路由定义name, 用于方面的传参
+        {path: '*', component: NotFound}
 
     ];
     //要把组件交给路由器控制

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/vue2.6.10.js"></script>
+    <script src="../../js/vuex.js"></script>
+    <script src="../../js/axios.min.js"></script>
+</head>
+<body>
+<div id="test">
+    <list></list>
+    <footer-cart></footer-cart>
+</div>
+<script type="text/x-template" id="list">
+    <div>
+        <h1 v-if="goods.length == 0">购物车中没有商品, <a href="http://www.taobao.com">去购物吧...</a></h1>
+        <div v-if="goods.length > 0">
+            <h3>购物车</h3>
+            <table border="1" width="90%">
+                <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>价格</th>
+                    <th>数量</th>
+                    <th>总计</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="v in goods">
+                    <td>{{v.id}}</td>
+                    <td>{{v.title}}</td>
+                    <td>{{v.price}}</td>
+                    <td><input type="text" v-model="v.num"></td>
+                    <td>{{v.totalPrice}}</td>
+                    <td>
+                        <button @click="del(v.id)">删除</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="footerCart">
+    <div class="footerCart">
+        <h1 v-if="totalPrice > 0">总价: {{totalPrice}}</h1>
+    </div>
+</script>
+<style>
+    .footerCart{background: #999; color: red;}
+</style>
+<script>
+    //将购物车功能模块化, 可以让代码更下清晰, 每个独立的功能对应一个模块
+    var cartModule = {
+        //设置命名空间, 那么这个模块里面的数据都是局部了, 外部的方法不能直接调用
+        namespaced: true,
+        //需要注意的一点, 只有state方法是全局的, 其他方法如果设置了命名空间就是局部方法
+        state: {
+            goods: []
+        },
+        //getters可以直接获取vuex中的数据
+        getters: {
+            totalPrice: state => {
+                var totalPrice = 0;
+                state.goods.forEach((v) => {
+                    totalPrice += v.num * v.price;
+                });
+                return totalPrice;
+            },
+            //获取生怕并计算每件商品的总价
+            goods(state) {
+                var goods = state.goods;
+                goods.forEach((v) => {
+                    v.totalPrice = v.num * v.price;
+                });
+                return goods;
+            }
+        },
+        //操作store中的数据
+        mutations: {
+            //删除购物车中的商品
+            del(state, param) {
+                var k;
+                for (var i = 0; i < state.goods.length; i++) {
+                    if (state.goods[i].id === param.id) {
+                        k = i;
+                        break;
+                    }
+                }
+                state.goods.splice(k, 1);
+            },
+
+            setData(state, param) {
+                state.goods = param.goods;
+            }
+        },
+        actions: {
+            loadGoods(store) {
+                //使用axios异步请求接口，返回数据
+                axios.get("../../json/goods.json").then(function (response) {
+                    store.commit('setData', {goods: response.data});
+                    console.log(response);
+                });
+            }
+        }
+    };
+    <!-- vuex其实就是统一管理数据的工具 -->
+    var store = new Vuex.Store({
+        modules: {
+            cart: cartModule
+        }
+    });
+    var list = {
+        template: '#list',
+        computed: {
+            goods() {
+                return this.$store.getters['cart/goods'];//使用模块化时, 如果设置了命名空间那么就需要用这种方式
+            }
+        },
+        methods: {
+            del(id) {
+                //commit表示调用store中的mutations方法, 后面的{id}表示传递的参数
+                this.$store.commit('del', {id})
+            }
+        }
+    };
+    var footerCart = {
+        template: "#footerCart",
+        computed: {
+            totalPrice() {
+                return this.$store.getters['cart/totalPrice'];
+            }
+        }
+    };
+    var app = new Vue({
+        el: '#test',
+        store,
+        components: {list, footerCart},
+        mounted() {
+            this.$store.dispatch('cart/loadGoods') // 注意commit是触发mutations中的方法, dispatch是触发actions中的方法
+        }
+    })
+</script>
+</body>
+</html>
